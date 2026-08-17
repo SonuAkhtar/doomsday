@@ -1,0 +1,124 @@
+.movie_poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  background:
+    radial-gradient(130% 90% at 20% -10%, color-mix(in srgb, var(--poster-accent) 78%, transparent) 0%, transparent 55%),
+    radial-gradient(120% 120% at 100% 120%, color-mix(in srgb, var(--poster-accent) 30%, #05040a) 0%, #05040a 70%),
+    linear-gradient(180deg, #12101a 0%, #05040a 100%);
+}
+
+.movie_poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.movie_poster-img {
+  object-fit: cover;
+  z-index: 0;
+}
+
+.movie_poster-scrim {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 64px;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent);
+  pointer-events: none;
+}
+
+.movie_poster--card .movie_poster-img {
+  transition: transform var(--transition-slow) var(--ease-out);
+}
+
+.movie_poster-grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+.movie_poster-order {
+  position: absolute;
+  right: -0.08em;
+  bottom: 0.42em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 8.5rem;
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.07);
+  letter-spacing: -0.04em;
+}
+
+.movie_poster-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.movie_poster-phase {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-strong);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.movie_poster-year {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.movie_poster-bottom {
+  margin-top: auto;
+}
+
+.movie_poster-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--color-text-strong);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
+}
+
+.movie_poster--feature .movie_poster-title {
+  font-size: 1.6rem;
+}
+
+.movie_poster--feature .movie_poster-order {
+  font-size: 11rem;
+}

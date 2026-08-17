@@ -1,0 +1,106 @@
+.next_mission {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-strong);
+  background: var(--gradient-surface);
+  overflow: hidden;
+}
+
+.next_mission::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--mission-accent) 22%, transparent), transparent 60%);
+  pointer-events: none;
+}
+
+.next_mission-poster {
+  position: relative;
+  display: block;
+  width: 150px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform var(--transition-base) var(--ease-out);
+}
+
+.next_mission-poster:hover {
+  transform: translateY(-3px);
+}
+
+.next_mission-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.next_mission-eyebrow {
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-energy);
+}
+
+.next_mission-title {
+  font-size: var(--text-title);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.next_mission-meta {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.next_mission-why {
+  color: var(--color-text);
+  font-size: var(--text-small);
+  line-height: 1.55;
+  margin-top: var(--space-1);
+}
+
+.next_mission-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.next_mission-watch {
+  width: 200px;
+  max-width: 100%;
+}
+
+.next_mission-link {
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-text);
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.next_mission-link:hover {
+  color: var(--color-primary);
+}
+
+@media (min-width: 640px) {
+  .next_mission {
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+    padding: var(--space-5);
+  }
+}

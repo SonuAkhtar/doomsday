@@ -1,0 +1,37 @@
+.relevance_tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-tiny);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-muted);
+}
+
+.relevance_tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.relevance_tag--essential {
+  color: #ff8a90;
+  border-color: rgba(224, 26, 43, 0.4);
+  background: var(--color-primary-soft);
+}
+
+.relevance_tag--recommended {
+  color: var(--color-accent);
+  border-color: rgba(207, 155, 82, 0.35);
+  background: var(--color-accent-soft);
+}
+
+.relevance_tag--optional {
+  color: var(--color-muted);
+}

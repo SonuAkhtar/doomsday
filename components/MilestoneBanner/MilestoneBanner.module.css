@@ -1,0 +1,46 @@
+.milestone_banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(207, 155, 82, 0.35);
+  background: linear-gradient(120deg, rgba(207, 155, 82, 0.12), var(--color-surface));
+}
+
+.milestone_banner--complete {
+  border-color: rgba(224, 26, 43, 0.4);
+  background: linear-gradient(120deg, rgba(224, 26, 43, 0.16), var(--color-surface));
+}
+
+.milestone_banner-glow {
+  position: absolute;
+  top: -60%;
+  right: -10%;
+  width: 260px;
+  height: 200px;
+  background: radial-gradient(closest-side, rgba(207, 155, 82, 0.35), transparent 70%);
+  pointer-events: none;
+}
+
+.milestone_banner--complete .milestone_banner-glow {
+  background: radial-gradient(closest-side, rgba(224, 26, 43, 0.4), transparent 70%);
+}
+
+.milestone_banner-title {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-strong);
+}
+
+.milestone_banner-message {
+  position: relative;
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}

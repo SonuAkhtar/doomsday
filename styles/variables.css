@@ -1,0 +1,86 @@
+:root {
+  --color-background: #050507;
+  --color-background-2: #0a0a0f;
+  --color-surface: #101017;
+  --color-surface-2: #16161f;
+  --color-surface-raised: #1c1c27;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-primary: #e01a2b;
+  --color-primary-deep: #8f0f1c;
+  --color-primary-soft: rgba(224, 26, 43, 0.16);
+  --color-accent: #cf9b52;
+  --color-accent-soft: rgba(207, 155, 82, 0.16);
+  --color-energy: #43c6e8;
+  --color-energy-soft: rgba(67, 198, 232, 0.16);
+  --color-cosmic: #7b5cff;
+
+  --color-text: #f4f4f6;
+  --color-text-strong: #ffffff;
+  --color-muted: #9a9aa8;
+  --color-faint: #62626f;
+  --color-danger: #ff5a5f;
+  --color-success: #59d499;
+
+  --font-display: var(--font-display-face), "Arial Narrow", sans-serif;
+  --font-body: var(--font-body-face), system-ui, sans-serif;
+
+  --text-hero: clamp(2.75rem, 9vw, 7.5rem);
+  --text-display: clamp(2rem, 5vw, 3.75rem);
+  --text-title: clamp(1.5rem, 3vw, 2.25rem);
+  --text-heading: 1.25rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-tiny: 0.75rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-glow-primary: 0 0 40px rgba(224, 26, 43, 0.35);
+  --shadow-glow-energy: 0 0 32px rgba(67, 198, 232, 0.3);
+
+  --gradient-hero: radial-gradient(120% 120% at 50% -10%, rgba(224, 26, 43, 0.32) 0%, rgba(143, 15, 28, 0.12) 35%, transparent 65%);
+  --gradient-surface: linear-gradient(160deg, var(--color-surface-2) 0%, var(--color-surface) 100%);
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-deep) 100%);
+  --gradient-energy: linear-gradient(135deg, var(--color-energy) 0%, var(--color-cosmic) 100%);
+  --gradient-text: linear-gradient(180deg, #ffffff 0%, #b9b9c4 100%);
+
+  --transition-fast: 160ms;
+  --transition-base: 260ms;
+  --transition-slow: 480ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  --z-base: 1;
+  --z-timeline: 5;
+  --z-header: 50;
+  --z-bottomnav: 60;
+  --z-overlay: 80;
+  --z-dialog: 100;
+
+  --nav-height: 68px;
+  --bottomnav-height: 66px;
+  --content-max: 1280px;
+}

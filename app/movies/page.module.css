@@ -1,0 +1,17 @@
+.movies_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.movies_empty {
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 520px) {
+  .movies_grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: var(--space-4);
+  }
+}

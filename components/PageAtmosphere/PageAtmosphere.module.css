@@ -1,0 +1,31 @@
+.page_atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.page_atmosphere--center {
+  background: radial-gradient(
+    90% 55% at 50% -5%,
+    color-mix(in srgb, var(--atmo-accent) 26%, transparent) 0%,
+    transparent 60%
+  );
+}
+
+.page_atmosphere--left {
+  background: radial-gradient(
+    70% 55% at 12% -5%,
+    color-mix(in srgb, var(--atmo-accent) 26%, transparent) 0%,
+    transparent 60%
+  );
+}
+
+.page_atmosphere--right {
+  background: radial-gradient(
+    70% 55% at 88% -5%,
+    color-mix(in srgb, var(--atmo-accent) 26%, transparent) 0%,
+    transparent 60%
+  );
+}

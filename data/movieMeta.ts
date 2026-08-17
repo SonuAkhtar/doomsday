@@ -1,0 +1,46 @@
+export interface MovieMeta {
+  poster: string;
+  imdbRating: number | null;
+  streaming: string[];
+}
+
+export const movieMeta: Record<string, MovieMeta> = {
+  "iron-man": { poster: "/posters/iron-man.jpg", imdbRating: 7.9, streaming: ["Disney+"] },
+  "the-incredible-hulk": { poster: "/posters/the-incredible-hulk.jpg", imdbRating: 6.6, streaming: [] },
+  "iron-man-2": { poster: "/posters/iron-man-2.jpg", imdbRating: 6.9, streaming: ["Disney+"] },
+  "thor": { poster: "/posters/thor.jpg", imdbRating: 7, streaming: ["Disney+"] },
+  "captain-america-the-first-avenger": { poster: "/posters/captain-america-the-first-avenger.jpg", imdbRating: 6.9, streaming: ["Disney+"] },
+  "the-avengers": { poster: "/posters/the-avengers.jpg", imdbRating: 8, streaming: ["Disney+"] },
+  "iron-man-3": { poster: "/posters/iron-man-3.jpg", imdbRating: 7.1, streaming: ["Disney+"] },
+  "thor-the-dark-world": { poster: "/posters/thor-the-dark-world.jpg", imdbRating: 6.8, streaming: ["Disney+"] },
+  "captain-america-the-winter-soldier": { poster: "/posters/captain-america-the-winter-soldier.jpg", imdbRating: 7.7, streaming: ["Disney+"] },
+  "guardians-of-the-galaxy": { poster: "/posters/guardians-of-the-galaxy.jpg", imdbRating: 8, streaming: ["Disney+"] },
+  "avengers-age-of-ultron": { poster: "/posters/avengers-age-of-ultron.jpg", imdbRating: 7.3, streaming: ["Disney+"] },
+  "ant-man": { poster: "/posters/ant-man.jpg", imdbRating: 7.3, streaming: ["Disney+"] },
+  "captain-america-civil-war": { poster: "/posters/captain-america-civil-war.jpg", imdbRating: 7.8, streaming: ["Disney+"] },
+  "doctor-strange": { poster: "/posters/doctor-strange.jpg", imdbRating: 7.5, streaming: ["Disney+"] },
+  "guardians-of-the-galaxy-vol-2": { poster: "/posters/guardians-of-the-galaxy-vol-2.jpg", imdbRating: 7.6, streaming: ["Disney+"] },
+  "spider-man-homecoming": { poster: "/posters/spider-man-homecoming.jpg", imdbRating: 7.4, streaming: ["Disney+"] },
+  "thor-ragnarok": { poster: "/posters/thor-ragnarok.jpg", imdbRating: 7.9, streaming: ["Disney+"] },
+  "black-panther": { poster: "/posters/black-panther.jpg", imdbRating: 7.3, streaming: ["Disney+"] },
+  "avengers-infinity-war": { poster: "/posters/avengers-infinity-war.jpg", imdbRating: 8.4, streaming: ["Disney+"] },
+  "ant-man-and-the-wasp": { poster: "/posters/ant-man-and-the-wasp.jpg", imdbRating: 7, streaming: ["Disney+"] },
+  "captain-marvel": { poster: "/posters/captain-marvel.jpg", imdbRating: 6.8, streaming: ["Disney+"] },
+  "avengers-endgame": { poster: "/posters/avengers-endgame.jpg", imdbRating: 8.4, streaming: ["Disney+"] },
+  "spider-man-far-from-home": { poster: "/posters/spider-man-far-from-home.jpg", imdbRating: 7.4, streaming: ["Disney+"] },
+  "black-widow": { poster: "/posters/black-widow.jpg", imdbRating: 6.7, streaming: ["Disney+"] },
+  "shang-chi": { poster: "/posters/shang-chi.jpg", imdbRating: 7.4, streaming: ["Disney+"] },
+  "eternals": { poster: "/posters/eternals.jpg", imdbRating: 6.3, streaming: ["Disney+"] },
+  "spider-man-no-way-home": { poster: "/posters/spider-man-no-way-home.jpg", imdbRating: 8.2, streaming: ["Disney+"] },
+  "doctor-strange-multiverse-of-madness": { poster: "/posters/doctor-strange-multiverse-of-madness.jpg", imdbRating: 6.9, streaming: ["Disney+"] },
+  "thor-love-and-thunder": { poster: "/posters/thor-love-and-thunder.jpg", imdbRating: 6.2, streaming: ["Disney+"] },
+  "black-panther-wakanda-forever": { poster: "/posters/black-panther-wakanda-forever.jpg", imdbRating: 6.7, streaming: ["Disney+"] },
+  "ant-man-quantumania": { poster: "/posters/ant-man-quantumania.jpg", imdbRating: 6.1, streaming: ["Disney+"] },
+  "guardians-of-the-galaxy-vol-3": { poster: "/posters/guardians-of-the-galaxy-vol-3.jpg", imdbRating: 7.9, streaming: ["Disney+"] },
+  "the-marvels": { poster: "/posters/the-marvels.jpg", imdbRating: 5.6, streaming: ["Disney+"] },
+  "deadpool-and-wolverine": { poster: "/posters/deadpool-and-wolverine.jpg", imdbRating: 7.6, streaming: ["Disney+"] },
+  "captain-america-brave-new-world": { poster: "/posters/captain-america-brave-new-world.jpg", imdbRating: 5.9, streaming: ["Disney+"] },
+  "thunderbolts": { poster: "/posters/thunderbolts.jpg", imdbRating: 7.5, streaming: ["Disney+"] },
+  "fantastic-four-first-steps": { poster: "/posters/fantastic-four-first-steps.jpg", imdbRating: 7.1, streaming: ["Disney+"] },
+  "avengers-doomsday": { poster: "/posters/avengers-doomsday.jpg", imdbRating: null, streaming: [] },
+};
