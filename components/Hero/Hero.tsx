@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { journeyMovies, DOOMSDAY_RELEASE_DATE } from "@/data/movies";
+import { DOOMSDAY_RELEASE_DATE } from "@/data/movies";
 import {
   duration,
   gsapEase,
@@ -12,10 +12,7 @@ import {
   stagger,
   travel,
 } from "@/lib/motion";
-import { useWatched } from "@/lib/WatchedContext";
-import { computeProgress } from "@/lib/progress";
 import { Countdown } from "@/components/Countdown/Countdown";
-import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(useGSAP);
@@ -29,8 +26,6 @@ const RELEASE_DATE = RELEASE.toLocaleDateString("en-US", {
 });
 
 export function Hero() {
-  const { watchedIds, hydrated } = useWatched();
-  const progress = computeProgress(journeyMovies, watchedIds);
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -97,18 +92,6 @@ export function Hero() {
             <Link href="/movies" className={styles["hero_cta-secondary"]}>
               Explore all movies
             </Link>
-          </div>
-
-          <div className={styles["hero_progress"]} data-hero>
-            <ProgressBar
-              percent={hydrated ? progress.percent : 0}
-              label="Journey progress"
-              detail={
-                hydrated
-                  ? `${progress.watched} / ${progress.total} essentials`
-                  : `0 / ${progress.total} essentials`
-              }
-            />
           </div>
         </div>
       </div>

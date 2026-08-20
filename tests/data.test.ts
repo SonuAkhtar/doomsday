@@ -8,6 +8,7 @@ import {
   officialWatchlistMovies,
   journeyExtraMovies,
   upcomingMovies,
+  getMovieById,
 } from "@/data/movies";
 import {
   formatReleaseDate,
@@ -189,6 +190,17 @@ describe("formatRuntime", () => {
   it("handles unknown runtimes", () => {
     expect(formatRuntime(0)).toBe("TBA");
     expect(formatRuntime(-5)).toBe("TBA");
+  });
+});
+
+describe("getMovieById", () => {
+  it("finds a film by id", () => {
+    expect(getMovieById("x-men")?.title).toBe("X-Men");
+    expect(getMovieById("avengers-doomsday")?.title).toBe("Avengers: Doomsday");
+  });
+
+  it("returns undefined for an unknown id", () => {
+    expect(getMovieById("not-a-film")).toBeUndefined();
   });
 });
 

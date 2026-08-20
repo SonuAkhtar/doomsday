@@ -233,7 +233,3 @@
   background: var(--color-primary-soft);
 }
 
-.hero_progress {
-  margin-top: var(--space-7);
-  max-width: 440px;
-}

@@ -9,6 +9,7 @@ import { computeProgress, currentMilestone, type Milestone } from "@/lib/progres
 import { formatRuntime } from "@/lib/format";
 import { Hero } from "@/components/Hero/Hero";
 import { PageAtmosphere } from "@/components/PageAtmosphere/PageAtmosphere";
+import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
 import { StatTile } from "@/components/StatTile/StatTile";
 import { NextMission } from "@/components/NextMission/NextMission";
 import { JourneyRail } from "@/components/JourneyRail/JourneyRail";
@@ -33,6 +34,7 @@ export default function HomePage() {
   const watchedCount = hydrated ? progress.watched : 0;
   const remainingCount = hydrated ? progress.remaining : progress.total;
   const remainingRuntime = hydrated ? progress.remainingRuntime : progress.totalRuntime;
+  const percent = hydrated ? progress.percent : 0;
   const [statsOpen, setStatsOpen] = useState(false);
 
   return (
@@ -62,20 +64,28 @@ export default function HomePage() {
             <ChevronDown className={styles["home_snapshot-chevron"]} aria-hidden="true" />
           </button>
 
-          <div
-            className={`${styles["home_snapshot-body"]} ${statsOpen ? styles["home_snapshot-body--open"] : ""}`}
-          >
-            <div className={styles["home_snapshot-inner"]}>
-              <div className={styles["home_stats"]}>
-                <StatTile value={`${watchedCount}/${progress.total}`} label="Completed" accent />
-                <StatTile
-                  value={formatRuntime(remainingRuntime)}
-                  label="Watch time left"
-                  hint={`Across ${remainingCount} remaining ${remainingCount === 1 ? "film" : "films"}`}
-                />
-              </div>
+          <div className={styles["home_snapshot-card"]}>
+            <ProgressBar
+              percent={percent}
+              label="Journey progress"
+              detail={`${watchedCount} / ${progress.total} watched`}
+            />
 
-              <p className={styles["home_milestone"]}>{MILESTONE_COPY[milestone]}</p>
+            <div
+              className={`${styles["home_snapshot-body"]} ${statsOpen ? styles["home_snapshot-body--open"] : ""}`}
+            >
+              <div className={styles["home_snapshot-inner"]}>
+                <div className={styles["home_stats"]}>
+                  <StatTile value={`${watchedCount}/${progress.total}`} label="Completed" accent />
+                  <StatTile
+                    value={formatRuntime(remainingRuntime)}
+                    label="Watch time left"
+                    hint={`Across ${remainingCount} remaining ${remainingCount === 1 ? "film" : "films"}`}
+                  />
+                </div>
+
+                <p className={styles["home_milestone"]}>{MILESTONE_COPY[milestone]}</p>
+              </div>
             </div>
           </div>
         </section>

@@ -1235,6 +1235,10 @@ export function justWatchUrl(title: string): string {
   return `https://www.justwatch.com/us/search?q=${encodeURIComponent(title)}`;
 }
 
+export function getMovieById(id: string): Movie | undefined {
+  return movies.find((movie) => movie.id === id);
+}
+
 export const doomsdayMovie = movies.find((m) => m.id === "avengers-doomsday")!;
 
 export const catalogMovies: Movie[] = movies.filter(
