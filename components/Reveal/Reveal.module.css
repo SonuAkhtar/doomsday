@@ -1,0 +1,98 @@
+.reveal {
+  --reveal-rise: var(--rise-md);
+  --reveal-delay: 0ms;
+  --reveal-step: var(--stagger-base);
+  --reveal-duration: var(--dur-slow);
+  --reveal-ease: var(--ease-entrance);
+  --hidden-transform: none;
+  --hidden-filter: none;
+}
+
+.reveal[data-reveal="rise"] {
+  --hidden-transform: translate3d(0, var(--reveal-rise), 0);
+}
+
+.reveal[data-reveal="blur"] {
+  --hidden-transform: scale(1.028);
+  --hidden-filter: blur(14px);
+}
+
+.reveal[data-reveal="clip"] {
+  --hidden-transform: translate3d(0, calc(var(--reveal-rise) * 0.4), 0);
+  --reveal-duration: var(--dur-cinematic);
+}
+
+.reveal[data-reveal="wipe"] {
+  --reveal-duration: var(--dur-cinematic);
+  --reveal-ease: var(--ease-glide);
+}
+
+:global(html[data-motion="on"]) .reveal:not([data-settled]).solo,
+:global(html[data-motion="on"]) .reveal:not([data-settled]) > .solo,
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > * {
+  transition-property: opacity, transform, filter, clip-path;
+  transition-duration: var(--reveal-duration);
+  transition-timing-function: var(--reveal-ease);
+  transition-delay: var(--reveal-delay);
+}
+
+:global(html[data-motion="on"]) .reveal:not([data-revealed]).solo,
+:global(html[data-motion="on"]) .reveal:not([data-revealed]) > .solo,
+:global(html[data-motion="on"]) .reveal:not([data-revealed]).stagger > * {
+  opacity: 0;
+  transform: var(--hidden-transform);
+  filter: var(--hidden-filter);
+  will-change: opacity, transform;
+}
+
+:global(html[data-motion="on"]) .reveal[data-reveal="clip"] > .solo,
+:global(html[data-motion="on"]) .reveal[data-reveal="wipe"] > .solo {
+  clip-path: inset(-15% -15% -15% -15%);
+}
+
+:global(html[data-motion="on"]) .reveal[data-reveal="clip"]:not([data-revealed]) > .solo {
+  opacity: 1;
+  clip-path: inset(0 -15% 100% -15%);
+}
+
+:global(html[data-motion="on"]) .reveal[data-reveal="wipe"]:not([data-revealed]) > .solo {
+  opacity: 1;
+  clip-path: inset(-15% 100% -15% 0);
+}
+
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(1) {
+  transition-delay: var(--reveal-delay);
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(2) {
+  transition-delay: calc(var(--reveal-delay) + 1 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(3) {
+  transition-delay: calc(var(--reveal-delay) + 2 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(4) {
+  transition-delay: calc(var(--reveal-delay) + 3 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(5) {
+  transition-delay: calc(var(--reveal-delay) + 4 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(6) {
+  transition-delay: calc(var(--reveal-delay) + 5 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(7) {
+  transition-delay: calc(var(--reveal-delay) + 6 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(8) {
+  transition-delay: calc(var(--reveal-delay) + 7 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(9) {
+  transition-delay: calc(var(--reveal-delay) + 8 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(10) {
+  transition-delay: calc(var(--reveal-delay) + 9 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(11) {
+  transition-delay: calc(var(--reveal-delay) + 10 * var(--reveal-step));
+}
+:global(html[data-motion="on"]) .reveal:not([data-settled]).stagger > *:nth-child(n + 12) {
+  transition-delay: calc(var(--reveal-delay) + 11 * var(--reveal-step));
+}

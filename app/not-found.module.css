@@ -35,10 +35,10 @@
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-md);
   background: var(--gradient-primary);
-  color: var(--color-text-strong);
+  color: var(--color-on-primary);
   font-weight: 600;
   box-shadow: var(--shadow-glow-primary);
-  transition: transform var(--transition-fast) var(--ease-out);
+  transition: transform var(--dur-fast) var(--ease-entrance);
 }
 
 .notfound_link:hover {

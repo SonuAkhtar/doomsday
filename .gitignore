@@ -1,0 +1,77 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+
+# testing
+/coverage
+
+# misc
+.DS_Store
+Thumbs.db
+
+# secrets / credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+*.keystore
+id_rsa
+id_rsa.*
+*.secret
+secrets.json
+.npmrc
+.env.vault
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env
+.env.*
+.env*.local
+.env.development
+.env.production
+*.env
+
+# markdown / docs
+*.md
+*.mdx
+!README.md
+
+# dev / tooling files
+.editorconfig
+.prettierrc.json
+.prettierignore
+.eslintcache
+*.log
+*.local
+.cache/
+.turbo/
+.history/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# editor
+.idea
+.vscode/*
+!.vscode/extensions.json

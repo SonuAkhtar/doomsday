@@ -101,36 +101,38 @@ export function FilterBar({ query, phases, resultCount, onChange, onReset }: Fil
           />
         </label>
 
+        <div className={styles["filter_bar-controls"]}>
         <label className={styles.filter_sort}>
           <span className="visually-hidden">Sort order</span>
           <select
             value={query.sort}
             onChange={(event) => onChange({ sort: event.target.value as SortOrder })}
           >
-            <option value="recommended">Recommended order</option>
+            <option value="recommended">Recommended</option>
             <option value="release">Release date</option>
-            <option value="chronological">Story timeline</option>
+            <option value="chronological">Story order</option>
           </select>
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </label>
-      </div>
 
-      <button
-        type="button"
-        className={styles["filter_bar-toggle"]}
-        aria-expanded={open}
-        onClick={() => setOpen((current) => !current)}
-      >
-        <span>
-          Filters
-          {activeCount > 0 && <span className={styles["filter_bar-toggle-count"]}>{activeCount}</span>}
-        </span>
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" data-open={open}>
-          <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
+        <button
+          type="button"
+          className={styles["filter_bar-toggle"]}
+          aria-expanded={open}
+          onClick={() => setOpen((current) => !current)}
+        >
+          <span>
+            Filters
+            {activeCount > 0 && <span className={styles["filter_bar-toggle-count"]}>{activeCount}</span>}
+          </span>
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" data-open={open}>
+            <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        </div>
+      </div>
 
       <div className={`${styles["filter_bar-collapse"]} ${open ? styles["filter_bar-collapse--open"] : ""}`}>
         <div className={styles["filter_bar-groups"]}>

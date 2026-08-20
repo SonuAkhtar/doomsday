@@ -1,8 +1,9 @@
 .next_mission {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: var(--space-4);
   padding: var(--space-4);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border-strong);
@@ -21,12 +22,12 @@
 .next_mission-poster {
   position: relative;
   display: block;
-  width: 150px;
+  width: 110px;
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
-  transition: transform var(--transition-base) var(--ease-out);
+  transition: transform var(--dur-base) var(--ease-entrance);
 }
 
 .next_mission-poster:hover {
@@ -62,6 +63,7 @@
 }
 
 .next_mission-why {
+  display: none;
   color: var(--color-text);
   font-size: var(--text-small);
   line-height: 1.55;
@@ -81,26 +83,18 @@
   max-width: 100%;
 }
 
-.next_mission-link {
-  font-size: var(--text-small);
-  font-weight: 600;
-  color: var(--color-text);
-  padding: var(--space-2) var(--space-3);
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-radius: var(--radius-md);
-  transition: color var(--transition-fast) var(--ease-out);
-}
-
-.next_mission-link:hover {
-  color: var(--color-primary);
-}
-
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .next_mission {
     grid-template-columns: 150px 1fr;
-    align-items: center;
+    gap: var(--space-5);
     padding: var(--space-5);
+  }
+
+  .next_mission-poster {
+    width: 150px;
+  }
+
+  .next_mission-why {
+    display: block;
   }
 }

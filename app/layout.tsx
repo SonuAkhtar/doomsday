@@ -2,8 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { Oswald, Inter } from "next/font/google";
 import { WatchedProvider } from "@/lib/WatchedContext";
 import { MovieModalProvider } from "@/lib/MovieModalContext";
+import { ThemeProvider } from "@/lib/ThemeContext";
+import { DoomsdayBackdrop } from "@/components/DoomsdayBackdrop/DoomsdayBackdrop";
 import { Header } from "@/components/Header/Header";
 import { BottomNav } from "@/components/BottomNav/BottomNav";
+import { Footer } from "@/components/Footer/Footer";
+
+const bootScript = `try{if(localStorage.getItem('doomsday.theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-motion','on')}catch(e){}`;
 import "./globals.css";
 
 const displayFont = Oswald({
@@ -25,7 +30,7 @@ const siteUrl = "https://doomsday-journey.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Doomsday — The Marvel Watch Journey",
+    default: "Doomsday: The Marvel Watch Journey",
     template: "%s · Doomsday",
   },
   description:
@@ -41,14 +46,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "Doomsday — The Marvel Watch Journey",
+    title: "Doomsday: The Marvel Watch Journey",
     description:
       "The ultimate Marvel watch journey before Avengers: Doomsday. Track your progress through the films that matter.",
     siteName: "Doomsday",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Doomsday — The Marvel Watch Journey",
+    title: "Doomsday: The Marvel Watch Journey",
     description:
       "Track which Marvel movies to watch before Avengers: Doomsday.",
   },
@@ -71,15 +76,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body>
-        <WatchedProvider>
-          <MovieModalProvider>
-            <Header />
-            <main className="app-main">{children}</main>
-            <BottomNav />
-          </MovieModalProvider>
-        </WatchedProvider>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        <ThemeProvider>
+          <WatchedProvider>
+            <MovieModalProvider>
+              <DoomsdayBackdrop />
+              <Header />
+              <main className="app-main">{children}</main>
+              <Footer />
+              <BottomNav />
+            </MovieModalProvider>
+          </WatchedProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

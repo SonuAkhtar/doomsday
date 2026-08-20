@@ -8,7 +8,7 @@
   align-items: stretch;
   height: calc(var(--bottomnav-height) + env(safe-area-inset-bottom, 0px));
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: linear-gradient(180deg, rgba(10, 10, 15, 0.85) 0%, rgba(5, 5, 7, 0.98) 100%);
+  background: var(--color-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--color-border);
@@ -22,7 +22,7 @@
   justify-content: center;
   gap: 4px;
   color: var(--color-faint);
-  transition: color var(--transition-fast) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-entrance);
   -webkit-tap-highlight-color: transparent;
 }
 

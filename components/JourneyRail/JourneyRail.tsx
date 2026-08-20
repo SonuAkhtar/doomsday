@@ -24,7 +24,7 @@ export function JourneyRail() {
             <li key={movie.id} className={styles["journey_rail-item"]}>
               <button
                 type="button"
-                onClick={() => openMovie(movie)}
+                onClick={(event) => openMovie(movie, event.currentTarget)}
                 className={`${styles["journey_rail-node"]} ${styles[`journey_rail-node--${state}`]}`}
               >
                 <span className={styles["journey_rail-connector"]} aria-hidden="true" />

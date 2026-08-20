@@ -1,12 +1,13 @@
 "use client";
 
 import type { Movie } from "@/types/movie";
-import { formatRuntime, formatYear, formatWatchedAt } from "@/lib/format";
+import { phaseLabel, formatRuntime, formatYear, formatWatchedAt } from "@/lib/format";
 import { useWatched } from "@/lib/WatchedContext";
 import { useMovieModal } from "@/lib/MovieModalContext";
 import { MoviePoster } from "@/components/MoviePoster/MoviePoster";
 import { RelevanceTag } from "@/components/RelevanceTag/RelevanceTag";
 import { WatchedButton } from "@/components/WatchedButton/WatchedButton";
+import { DetailsLink } from "@/components/DetailsLink/DetailsLink";
 import styles from "./MovieCard.module.css";
 
 interface MovieCardProps {
@@ -26,14 +27,14 @@ export function MovieCard({ movie, index = 0, watchedAt }: MovieCardProps) {
       <button
         type="button"
         className={styles["movie_card-poster"]}
-        onClick={() => openMovie(movie)}
+        onClick={(event) => openMovie(movie, event.currentTarget)}
         aria-label={`View ${movie.title} details`}
       >
         <MoviePoster movie={movie} priority={index < 4} />
-        {movie.imdbRating !== null && (
+        {movie.rating !== null && (
           <span className={styles["movie_card-rating"]}>
-            <strong>IMDb</strong>
-            {movie.imdbRating.toFixed(1)}
+            <strong>Rating</strong>
+            {movie.rating.toFixed(1)}
           </span>
         )}
         {watched && (
@@ -52,7 +53,7 @@ export function MovieCard({ movie, index = 0, watchedAt }: MovieCardProps) {
         </div>
 
         <h3 className={styles["movie_card-title"]}>
-          <button type="button" onClick={() => openMovie(movie)}>
+          <button type="button" onClick={(event) => openMovie(movie, event.currentTarget)}>
             {movie.title}
           </button>
         </h3>
@@ -63,7 +64,7 @@ export function MovieCard({ movie, index = 0, watchedAt }: MovieCardProps) {
           <span>{formatRuntime(movie.runtime)}</span>
           <span className={styles["movie_card-phase"]}>
             <span className={styles["movie_card-dot"]} aria-hidden="true">•</span>
-            Phase {movie.phase}
+            {phaseLabel(movie)}
           </span>
         </p>
 
@@ -79,13 +80,10 @@ export function MovieCard({ movie, index = 0, watchedAt }: MovieCardProps) {
 
         <div className={styles["movie_card-actions"]}>
           <WatchedButton movie={movie} size="sm" />
-          <button
-            type="button"
-            className={styles["movie_card-details"]}
-            onClick={() => openMovie(movie)}
-          >
-            Details
-          </button>
+          <DetailsLink
+            onClick={(event) => openMovie(movie, event.currentTarget)}
+            ariaLabel={`View ${movie.title} details`}
+          />
         </div>
       </div>
     </article>

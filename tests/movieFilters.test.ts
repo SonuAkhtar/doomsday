@@ -53,7 +53,7 @@ describe("filterMovies", () => {
 
     const release = filterMovies(catalogMovies, { ...defaultQuery, sort: "release" }, empty);
     for (let i = 1; i < release.length; i += 1) {
-      expect(release[i].releaseDate <= release[i - 1].releaseDate).toBe(true);
+      expect((release[i].releaseDate ?? "") <= (release[i - 1].releaseDate ?? "")).toBe(true);
     }
 
     const chrono = filterMovies(catalogMovies, { ...defaultQuery, sort: "chronological" }, empty);

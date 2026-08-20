@@ -15,6 +15,7 @@ import { MovieCard } from "@/components/MovieCard/MovieCard";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { Reveal } from "@/components/Reveal/Reveal";
 import styles from "./page.module.css";
+import { RouteTransition } from "@/components/RouteTransition/RouteTransition";
 
 interface WatchedItem {
   movie: Movie;
@@ -44,53 +45,55 @@ export default function WatchedPage() {
   const hasWatched = hydrated && watchedMovies.length > 0;
 
   return (
-    <div className="page-wrap">
-      <PageAtmosphere accent="#43c6e8" position="left" />
-      <PageHeader
-        eyebrow="Watched"
-        title="Watched"
-        description="Every film you have marked as watched, most recent first. Undo any title to move it back into your queue."
-      />
-
-      {!hydrated ? (
-        <div className={styles.watched_loading} aria-hidden="true">
-          <span className={styles["watched_loading-bar"]} />
-        </div>
-      ) : hasWatched ? (
-        <>
-          <MilestoneBanner milestone={milestone} />
-
-          <div className={styles.watched_overview}>
-            <div className={styles["watched_overview-stats"]}>
-              <StatTile value={watchedMovies.length} label="Films watched" accent />
-              <StatTile value={`${journey.watched}/${journey.total}`} label="Journey done" />
-              <StatTile value={formatRuntime(overall.watchedRuntime)} label="Time watched" />
-              <StatTile value={journey.remaining} label="Journey left" />
-            </div>
-            <div className={styles["watched_overview-progress"]}>
-              <ProgressBar
-                percent={journey.percent}
-                label="Before Doomsday progress"
-                detail={`${journey.watched} / ${journey.total} essentials`}
-              />
-            </div>
-          </div>
-
-          <h2 className={styles.watched_subhead}>Recently watched</h2>
-          <Reveal className={styles.watched_grid} stagger key={watchedMovies.length}>
-            {watchedMovies.map((item, index) => (
-              <MovieCard key={item.movie.id} movie={item.movie} index={index} watchedAt={item.at} />
-            ))}
-          </Reveal>
-        </>
-      ) : (
-        <EmptyState
-          title="Nothing watched yet"
-          message="Mark your first film as watched to start tracking your journey to Doomsday."
-          actionLabel="Start the journey"
-          actionHref="/before-doomsday"
+    <RouteTransition>
+      <div className="page-wrap" style={{ ["--page-accent" as string]: "#43c6e8" }}>
+        <PageAtmosphere accent="#43c6e8" position="left" />
+        <PageHeader
+          eyebrow="Watched"
+          title="Watched"
+          description="Every film you have marked as watched, most recent first. Undo any title to move it back into your queue."
         />
-      )}
-    </div>
+
+        {!hydrated ? (
+          <div className={styles.watched_loading} aria-hidden="true">
+            <span className={styles["watched_loading-bar"]} />
+          </div>
+        ) : hasWatched ? (
+          <>
+            <MilestoneBanner milestone={milestone} />
+
+            <div className={styles.watched_overview}>
+              <div className={styles["watched_overview-stats"]}>
+                <StatTile value={watchedMovies.length} label="Films watched" accent />
+                <StatTile value={`${journey.watched}/${journey.total}`} label="Journey done" />
+                <StatTile value={formatRuntime(overall.watchedRuntime)} label="Time watched" />
+                <StatTile value={journey.remaining} label="Journey left" />
+              </div>
+              <div className={styles["watched_overview-progress"]}>
+                <ProgressBar
+                  percent={journey.percent}
+                  label="Before Doomsday progress"
+                  detail={`${journey.watched} / ${journey.total} essentials`}
+                />
+              </div>
+            </div>
+
+            <h2 className={styles.watched_subhead}>Recently watched</h2>
+            <Reveal className={styles.watched_grid} stagger="tight">
+              {watchedMovies.map((item, index) => (
+                <MovieCard key={item.movie.id} movie={item.movie} index={index} watchedAt={item.at} />
+              ))}
+            </Reveal>
+          </>
+        ) : (
+          <EmptyState
+            title="Nothing watched yet"
+            message="Mark your first film as watched to start tracking your journey to Doomsday."
+            actionLabel="Start the journey"
+            actionHref="/before-doomsday"
+          />
+        )}
+      </div>
+    </RouteTransition>
   );
 }

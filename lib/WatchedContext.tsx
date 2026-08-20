@@ -65,9 +65,7 @@ function setStore(next: WatchedEntry[]) {
   if (typeof window !== "undefined") {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      /* storage may be unavailable; state stays in memory */
-    }
+    } catch {}
   }
   listeners.forEach((listener) => listener());
 }

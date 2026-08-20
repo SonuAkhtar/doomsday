@@ -39,7 +39,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-border-strong);
 }
 
 .journey_rail-item:first-child .journey_rail-connector {
@@ -54,8 +54,8 @@
   height: 12px;
   border-radius: 50%;
   background: var(--color-surface-2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transition: all var(--transition-base) var(--ease-out);
+  border: 2px solid var(--color-border-strong);
+  transition: all var(--dur-base) var(--ease-entrance);
 }
 
 .journey_rail-node--done .journey_rail-connector {
@@ -86,7 +86,7 @@
   font-weight: 500;
   color: var(--color-muted);
   line-height: 1.25;
-  transition: color var(--transition-fast) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-entrance);
 }
 
 .journey_rail-node--active .journey_rail-name,

@@ -23,7 +23,7 @@ export const defaultQuery: MovieQuery = {
 
 const SORTERS: Record<SortOrder, (a: Movie, b: Movie) => number> = {
   recommended: (a, b) => a.releaseOrder - b.releaseOrder,
-  release: (a, b) => b.releaseDate.localeCompare(a.releaseDate),
+  release: (a, b) => (b.releaseDate ?? "").localeCompare(a.releaseDate ?? ""),
   chronological: (a, b) => a.chronologicalOrder - b.chronologicalOrder,
 };
 
@@ -54,5 +54,8 @@ export function filterMovies(
 }
 
 export function availablePhases(movies: Movie[]): number[] {
-  return [...new Set(movies.map((movie) => movie.phase))].sort((a, b) => a - b);
+  const phases = movies
+    .map((movie) => movie.phase)
+    .filter((phase): phase is number => phase !== null);
+  return [...new Set(phases)].sort((a, b) => a - b);
 }

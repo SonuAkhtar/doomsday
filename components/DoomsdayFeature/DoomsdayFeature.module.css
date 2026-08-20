@@ -1,0 +1,135 @@
+.doomsday_feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(110px, 34%) 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  margin: var(--space-5) 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--feature-accent) 45%, var(--color-border));
+  background:
+    radial-gradient(120% 130% at 0% 0%, color-mix(in srgb, var(--feature-accent) 22%, transparent) 0%, transparent 58%),
+    var(--gradient-surface);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.doomsday_feature-glow {
+  position: absolute;
+  inset: -40% -10% auto auto;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--feature-accent) 30%, transparent) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.doomsday_feature::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--feature-accent) 90%, transparent),
+    transparent
+  );
+}
+
+.doomsday_feature-poster {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-entrance);
+}
+
+.doomsday_feature-poster:hover {
+  transform: translateY(-4px);
+}
+
+.doomsday_feature-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.doomsday_feature-eyebrow {
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--feature-accent) 70%, var(--color-text));
+}
+
+.doomsday_feature-title {
+  font-size: clamp(1.4rem, 5vw, 2.4rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--color-text-strong);
+}
+
+.doomsday_feature-release {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.doomsday_feature-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--feature-accent) 82%, #000);
+}
+
+.doomsday_feature-meta {
+  font-family: var(--font-display);
+  font-size: var(--text-tiny);
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.doomsday_feature-overview {
+  font-size: var(--text-small);
+  color: var(--color-muted);
+  max-width: 62ch;
+}
+
+@media (max-width: 520px) {
+  .doomsday_feature {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .doomsday_feature-poster {
+    width: 45%;
+  }
+}
+
+@media (min-width: 900px) {
+  .doomsday_feature {
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-5);
+    padding: var(--space-5);
+  }
+}

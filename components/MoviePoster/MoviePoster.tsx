@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { Movie } from "@/types/movie";
-import { formatYear } from "@/lib/format";
+import { phaseLabel, formatYear } from "@/lib/format";
 import styles from "./MoviePoster.module.css";
 
 interface MoviePosterProps {
@@ -41,7 +41,7 @@ export function MoviePoster({
             onError={() => setFailed(true)}
           />
           <span className={styles["movie_poster-scrim"]} aria-hidden="true" />
-          <span className={styles["movie_poster-phase"]}>Phase {movie.phase}</span>
+          <span className={styles["movie_poster-phase"]}>{phaseLabel(movie)}</span>
         </>
       ) : (
         <>
@@ -49,7 +49,7 @@ export function MoviePoster({
             {String(movie.releaseOrder).padStart(2, "0")}
           </span>
           <div className={styles["movie_poster-top"]}>
-            <span className={styles["movie_poster-phase"]}>Phase {movie.phase}</span>
+            <span className={styles["movie_poster-phase"]}>{phaseLabel(movie)}</span>
             <span className={styles["movie_poster-year"]}>{formatYear(movie.releaseDate)}</span>
           </div>
           <div className={styles["movie_poster-bottom"]}>

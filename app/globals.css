@@ -31,10 +31,9 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   background:
-    var(--gradient-hero),
-    radial-gradient(80% 60% at 100% 100%, rgba(67, 198, 232, 0.06), transparent 60%),
+    radial-gradient(70% 50% at 50% 120%, rgba(255, 255, 255, 0.02), transparent 70%),
     var(--color-background);
   pointer-events: none;
 }
@@ -86,12 +85,11 @@ ul {
 .app-main {
   min-height: 100dvh;
   padding-top: var(--nav-height);
-  padding-bottom: calc(var(--bottomnav-height) + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 1024px) {
   .app-main {
-    padding-bottom: var(--space-8);
+    padding-bottom: 0;
   }
 }
 
@@ -120,6 +118,110 @@ ul {
   border: 0;
 }
 
+::view-transition-old(.nav-forward) {
+  --slide-offset: -60px;
+  animation:
+    var(--dur-fast) var(--ease-exit) both route-fade reverse,
+    var(--dur-slow) var(--ease-glide) both route-slide reverse;
+}
+
+::view-transition-new(.nav-forward) {
+  --slide-offset: 60px;
+  animation:
+    var(--dur-base) var(--ease-entrance) var(--dur-fast) both route-fade,
+    var(--dur-slow) var(--ease-glide) both route-slide;
+}
+
+::view-transition-old(.nav-back) {
+  --slide-offset: 60px;
+  animation:
+    var(--dur-fast) var(--ease-exit) both route-fade reverse,
+    var(--dur-slow) var(--ease-glide) both route-slide reverse;
+}
+
+::view-transition-new(.nav-back) {
+  --slide-offset: -60px;
+  animation:
+    var(--dur-base) var(--ease-entrance) var(--dur-fast) both route-fade,
+    var(--dur-slow) var(--ease-glide) both route-slide;
+}
+
+@keyframes route-slide {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+@keyframes route-fade {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+:root:active-view-transition-type(nav-forward)::view-transition-old(root),
+:root:active-view-transition-type(nav-forward)::view-transition-new(root),
+:root:active-view-transition-type(nav-back)::view-transition-old(root),
+:root:active-view-transition-type(nav-back)::view-transition-new(root) {
+  animation: none;
+}
+
+html[data-theme-switch]::view-transition-old(root),
+html[data-theme-switch]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+html[data-theme-switch]::view-transition-old(root) {
+  z-index: 0;
+  animation: none;
+}
+
+html[data-theme-switch]::view-transition-new(root) {
+  z-index: 1;
+  animation: theme-sweep var(--dur-cinematic) var(--ease-entrance) both;
+}
+
+@keyframes theme-sweep {
+  from {
+    clip-path: circle(0px at var(--theme-origin-x, 50%) var(--theme-origin-y, 0px));
+  }
+  to {
+    clip-path: circle(var(--theme-radius, 150vmax) at var(--theme-origin-x, 50%) var(--theme-origin-y, 0px));
+  }
+}
+
+[data-vt="site-header"] {
+  view-transition-name: site-header;
+}
+
+[data-vt="site-bottomnav"] {
+  view-transition-name: site-bottomnav;
+}
+
+[data-vt="site-footer"] {
+  view-transition-name: site-footer;
+}
+
+html[data-theme-switch] [data-vt] {
+  view-transition-name: none;
+}
+
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-bottomnav),
+::view-transition-new(site-bottomnav),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer) {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -128,5 +230,13 @@ ul {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
   }
 }

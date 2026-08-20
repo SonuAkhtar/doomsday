@@ -1,0 +1,64 @@
+.doomsday_backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.doomsday_backdrop-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("/doomsday.jpg");
+  background-size: cover;
+  background-position: 58% 18%;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  transform-origin: 58% 30%;
+  animation: backdrop-breathe 6s var(--ease-standard) infinite;
+  mask-image:
+    linear-gradient(100deg, transparent 6%, rgba(0, 0, 0, 0.5) 30%, #000 52%),
+    radial-gradient(108% 104% at 62% 38%, #000 46%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(100deg, transparent 6%, rgba(0, 0, 0, 0.5) 30%, #000 52%),
+    radial-gradient(108% 104% at 62% 38%, #000 46%, transparent 100%);
+  -webkit-mask-composite: source-in;
+}
+
+:global(html[data-theme="light"]) .doomsday_backdrop-image {
+  opacity: 0.1;
+  filter: grayscale(0.3) contrast(0.92) brightness(1.15);
+}
+
+@keyframes backdrop-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+@media (max-width: 720px) {
+  .doomsday_backdrop-image {
+    inset: 0 0 auto 0;
+    width: 100%;
+    height: 68vh;
+    background-position: 50% 22%;
+    opacity: 0.13;
+    mask-image: radial-gradient(86% 76% at 52% 32%, #000 0%, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(86% 76% at 52% 32%, #000 0%, #000 30%, transparent 80%);
+  }
+
+  :global(html[data-theme="light"]) .doomsday_backdrop-image {
+    opacity: 0.08;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doomsday_backdrop-image {
+    animation: none;
+  }
+}

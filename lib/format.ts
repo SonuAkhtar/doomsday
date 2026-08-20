@@ -1,3 +1,10 @@
+import type { Movie } from "@/types/movie";
+
+export function phaseLabel(movie: Pick<Movie, "phase" | "saga">): string {
+  if (movie.phase !== null) return `Phase ${movie.phase}`;
+  return movie.saga ?? "Phase TBA";
+}
+
 export function formatRuntime(minutes: number): string {
   if (!minutes || minutes <= 0) return "TBA";
   const hours = Math.floor(minutes / 60);
@@ -7,7 +14,8 @@ export function formatRuntime(minutes: number): string {
   return `${hours}h ${mins}m`;
 }
 
-export function formatReleaseDate(iso: string): string {
+export function formatReleaseDate(iso: string | null): string {
+  if (!iso) return "Date TBA";
   const date = new Date(`${iso}T00:00:00`);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -16,8 +24,8 @@ export function formatReleaseDate(iso: string): string {
   });
 }
 
-export function formatYear(iso: string): string {
-  return iso.slice(0, 4);
+export function formatYear(iso: string | null): string {
+  return iso ? iso.slice(0, 4) : "TBA";
 }
 
 export function formatWatchedAt(timestamp: number): string | null {

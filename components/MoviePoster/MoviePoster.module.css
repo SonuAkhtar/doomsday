@@ -37,7 +37,7 @@
 }
 
 .movie_poster--card .movie_poster-img {
-  transition: transform var(--transition-slow) var(--ease-out);
+  transition: transform var(--dur-slow) var(--ease-entrance);
 }
 
 .movie_poster-grain {
@@ -81,15 +81,17 @@
   z-index: 2;
   align-self: flex-start;
   font-size: var(--text-tiny);
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-text-strong);
-  padding: 3px 8px;
+  color: var(--color-on-primary);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .movie_poster-year {

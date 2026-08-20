@@ -5,36 +5,56 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { journeyMovies, DOOMSDAY_RELEASE_DATE } from "@/data/movies";
+import {
+  duration,
+  gsapEase,
+  prefersReducedMotion,
+  stagger,
+  travel,
+} from "@/lib/motion";
 import { useWatched } from "@/lib/WatchedContext";
 import { computeProgress } from "@/lib/progress";
+import { Countdown } from "@/components/Countdown/Countdown";
 import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(useGSAP);
 
-function daysUntilRelease(): number {
-  const release = new Date(`${DOOMSDAY_RELEASE_DATE}T00:00:00`).getTime();
-  const diff = Math.ceil((release - Date.now()) / 86_400_000);
-  return diff > 0 ? diff : 0;
-}
+const RELEASE = new Date(`${DOOMSDAY_RELEASE_DATE}T00:00:00`);
+const RELEASE_WEEKDAY = RELEASE.toLocaleDateString("en-US", { weekday: "long" });
+const RELEASE_DATE = RELEASE.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
 
 export function Hero() {
   const { watchedIds, hydrated } = useWatched();
   const progress = computeProgress(journeyMovies, watchedIds);
-  const daysLeft = hydrated ? daysUntilRelease() : null;
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const items = gsap.utils.toArray<HTMLElement>("[data-hero]");
-      gsap.from(items, {
-        opacity: 0,
-        y: 28,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.1,
-      });
+      const el = ref.current;
+      if (!el) return;
+
+      try {
+        if (prefersReducedMotion()) return;
+        const items = gsap.utils.toArray<HTMLElement>("[data-hero]");
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: travel.riseMd },
+          {
+            opacity: 1,
+            y: 0,
+            duration: duration.cinematic,
+            ease: gsapEase.entrance,
+            stagger: stagger.loose,
+          },
+        );
+      } finally {
+        el.setAttribute("data-hero-ready", "");
+      }
     },
     { scope: ref },
   );
@@ -50,15 +70,24 @@ export function Hero() {
           <h1 className={styles["hero_title"]} data-hero>Doomsday</h1>
           <p className={styles["hero_subtitle"]} data-hero>
             The ultimate Marvel watch journey before <strong>Avengers: Doomsday</strong>.
-            Follow the films that matter, track every one you finish, and arrive ready.
+            <span className={styles["hero_subtitle-extra"]}>
+              {" "}
+              Follow the films that matter, track every one you finish, and arrive ready.
+            </span>
           </p>
 
           <div className={styles["hero_release"]} data-hero>
             <span className={styles["hero_release-dot"]} aria-hidden="true" />
-            In theaters December 18, 2026
-            {daysLeft !== null && daysLeft > 0 && (
-              <span className={styles["hero_release-count"]}>· {daysLeft} days away</span>
-            )}
+            <span className={styles["hero_release-label"]}>In theaters</span>
+            <span className={styles["hero_release-divider"]} aria-hidden="true" />
+            <time className={styles["hero_release-date"]} dateTime={DOOMSDAY_RELEASE_DATE}>
+              <span className={styles["hero_release-weekday"]}>{RELEASE_WEEKDAY}, </span>
+              {RELEASE_DATE}
+            </time>
+          </div>
+
+          <div data-hero>
+            <Countdown />
           </div>
 
           <div className={styles["hero_actions"]} data-hero>

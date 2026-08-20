@@ -7,7 +7,7 @@
   height: var(--nav-height);
   display: flex;
   align-items: center;
-  background: linear-gradient(180deg, rgba(5, 5, 7, 0.92) 0%, rgba(5, 5, 7, 0.72) 100%);
+  background: var(--color-glass);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
@@ -62,7 +62,7 @@
   letter-spacing: 0.04em;
   color: var(--color-muted);
   border-radius: var(--radius-sm);
-  transition: color var(--transition-fast) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-entrance);
 }
 
 .header_nav-link:hover {
@@ -84,6 +84,37 @@
   background: var(--gradient-primary);
 }
 
+.header_actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header_theme {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  padding: var(--space-2);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-entrance),
+    transform var(--dur-base) var(--ease-entrance),
+    visibility var(--dur-base);
+}
+
+.header_theme--open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
 .header_progress {
   display: flex;
   align-items: center;
@@ -92,7 +123,20 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
-  transition: border-color var(--transition-fast) var(--ease-out);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-entrance);
+}
+
+.header_progress-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-muted);
+  transition: transform var(--dur-base) var(--ease-entrance);
+}
+
+.header_progress[aria-expanded="true"] .header_progress-arrow {
+  transform: rotate(90deg);
 }
 
 .header_progress:hover {
@@ -108,7 +152,7 @@
 
 .header_progress-track {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: var(--color-border-strong);
   stroke-width: 3;
 }
 
@@ -117,7 +161,7 @@
   stroke: var(--color-primary);
   stroke-width: 3;
   stroke-linecap: round;
-  transition: stroke-dashoffset var(--transition-slow) var(--ease-out);
+  transition: stroke-dashoffset var(--dur-slow) var(--ease-entrance);
 }
 
 .header_progress-count {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navRoutes } from "@/lib/navigation";
+import { navDirection, navRoutes } from "@/lib/navigation";
 import styles from "./BottomNav.module.css";
 
 function isActive(pathname: string, href: string): boolean {
@@ -50,7 +50,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className={styles.bottomnav_bar} aria-label="Primary mobile">
+    <nav className={styles.bottomnav_bar} aria-label="Primary mobile" data-vt="site-bottomnav">
       {navRoutes.map((route) => {
         const active = isActive(pathname, route.href);
         return (
@@ -59,6 +59,7 @@ export function BottomNav() {
             href={route.href}
             className={styles.bottomnav_item}
             aria-current={active ? "page" : undefined}
+            transitionTypes={[navDirection(pathname, route.href)]}
           >
             <span className={styles["bottomnav_item-icon"]}>
               <NavIcon href={route.href} />

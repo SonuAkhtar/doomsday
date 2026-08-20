@@ -1,50 +1,95 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef, type CSSProperties, type ElementType } from "react";
+import { observeOnce, prefersReducedMotion, stagger as staggerScale } from "@/lib/motion";
+import styles from "./Reveal.module.css";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+export type RevealVariant = "fade" | "rise" | "blur" | "clip" | "wipe";
+
+export type RevealDuration = "base" | "slow" | "cinematic" | "epic";
 
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
-  stagger?: boolean;
-  y?: number;
+  variant?: RevealVariant;
+  stagger?: boolean | keyof typeof staggerScale;
   delay?: number;
+  y?: number;
+  duration?: RevealDuration;
+  as?: ElementType;
 }
 
-export function Reveal({ children, className, stagger = false, y = 20, delay = 0 }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export function Reveal({
+  children,
+  className,
+  variant = "rise",
+  stagger = false,
+  delay = 0,
+  y,
+  duration,
+  as: Tag = "div",
+}: RevealProps) {
+  const ref = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const el = ref.current;
-      if (!el) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-      const targets = stagger ? Array.from(el.children) : el;
-      gsap.from(targets, {
-        opacity: 0,
-        y,
-        duration: 0.6,
-        ease: "power2.out",
-        delay,
-        stagger: stagger ? 0.06 : 0,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 88%",
-          once: true,
-        },
-      });
-    },
-    { scope: ref },
-  );
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const settle = (node: Element) => {
+      const targets = [node, ...node.children];
+      const seconds = targets.reduce((longest, target) => {
+        const style = getComputedStyle(target);
+        const total =
+          (parseFloat(style.transitionDelay) || 0) + (parseFloat(style.transitionDuration) || 0);
+        return Math.max(longest, total);
+      }, 0);
+      timer = setTimeout(() => node.setAttribute("data-settled", ""), seconds * 1000 + 80);
+    };
+
+    if (prefersReducedMotion()) {
+      el.setAttribute("data-revealed", "");
+      el.setAttribute("data-settled", "");
+      return;
+    }
+
+    const unobserve = observeOnce(el, (node) => {
+      node.setAttribute("data-revealed", "");
+      settle(node);
+    });
+
+    return () => {
+      unobserve?.();
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const step = stagger === true ? staggerScale.base : stagger ? staggerScale[stagger] : null;
+
+  const clipsItself = !stagger && (variant === "clip" || variant === "wipe");
+
+  const style: CSSProperties = {
+    ...(delay ? { ["--reveal-delay" as string]: `${delay}ms` } : null),
+    ...(y !== undefined ? { ["--reveal-rise" as string]: `${y}px` } : null),
+    ...(step !== null ? { ["--reveal-step" as string]: `${step}s` } : null),
+    ...(duration ? { ["--reveal-duration" as string]: `var(--dur-${duration})` } : null),
+  };
 
   return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
+    <Tag
+      ref={ref}
+      data-reveal={variant}
+      className={[
+        styles.reveal,
+        stagger ? styles.stagger : clipsItself ? null : styles.solo,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={style}
+    >
+      {clipsItself ? <div className={styles.solo}>{children}</div> : children}
+    </Tag>
   );
 }

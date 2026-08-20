@@ -1,19 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { journeyMovies } from "@/data/movies";
 import { useWatched } from "@/lib/WatchedContext";
 import { computeProgress, currentMilestone, type Milestone } from "@/lib/progress";
 import { formatRuntime } from "@/lib/format";
 import { Hero } from "@/components/Hero/Hero";
+import { PageAtmosphere } from "@/components/PageAtmosphere/PageAtmosphere";
 import { StatTile } from "@/components/StatTile/StatTile";
 import { NextMission } from "@/components/NextMission/NextMission";
 import { JourneyRail } from "@/components/JourneyRail/JourneyRail";
 import { Reveal } from "@/components/Reveal/Reveal";
 import styles from "./page.module.css";
+import { RouteTransition } from "@/components/RouteTransition/RouteTransition";
 
 const MILESTONE_COPY: Record<Milestone, string> = {
-  start: "The journey begins. Twelve films stand between you and Doomsday.",
+  start: `The journey begins. ${journeyMovies.length} titles stand between you and Doomsday.`,
   first: "First mission complete. The path is set.",
   quarter: "A quarter of the way in. Momentum is building.",
   half: "Halfway to Doomsday. The multiverse is tightening.",
@@ -29,35 +33,51 @@ export default function HomePage() {
   const watchedCount = hydrated ? progress.watched : 0;
   const remainingCount = hydrated ? progress.remaining : progress.total;
   const remainingRuntime = hydrated ? progress.remainingRuntime : progress.totalRuntime;
-  const percent = hydrated ? progress.percent : 0;
+  const [statsOpen, setStatsOpen] = useState(false);
 
   return (
-    <>
+    <RouteTransition>
       <Hero />
 
       <div className="page-wrap">
+        <PageAtmosphere accent="#e01a2b" position="center" />
         <section className={styles.home_section} aria-labelledby="snapshot-heading">
-          <header className={styles["home_section-head"]}>
-            <div>
+          <button
+            type="button"
+            className={styles["home_snapshot-toggle"]}
+            aria-expanded={statsOpen}
+            onClick={() => setStatsOpen((open) => !open)}
+          >
+            <span>
               <span className={styles["home_section-eyebrow"]}>Mission status</span>
-              <h2 id="snapshot-heading" className={styles["home_section-title"]}>
+              <span
+                id="snapshot-heading"
+                role="heading"
+                aria-level={2}
+                className={styles["home_section-title"]}
+              >
                 Your journey to Doomsday
-              </h2>
+              </span>
+            </span>
+            <ChevronDown className={styles["home_snapshot-chevron"]} aria-hidden="true" />
+          </button>
+
+          <div
+            className={`${styles["home_snapshot-body"]} ${statsOpen ? styles["home_snapshot-body--open"] : ""}`}
+          >
+            <div className={styles["home_snapshot-inner"]}>
+              <div className={styles["home_stats"]}>
+                <StatTile value={`${watchedCount}/${progress.total}`} label="Completed" accent />
+                <StatTile
+                  value={formatRuntime(remainingRuntime)}
+                  label="Watch time left"
+                  hint={`Across ${remainingCount} remaining ${remainingCount === 1 ? "film" : "films"}`}
+                />
+              </div>
+
+              <p className={styles["home_milestone"]}>{MILESTONE_COPY[milestone]}</p>
             </div>
-          </header>
-
-          <Reveal className={styles["home_stats"]} stagger>
-            <StatTile value={`${watchedCount}/${progress.total}`} label="Completed" accent />
-            <StatTile value={remainingCount} label="Remaining" />
-            <StatTile value={`${percent}%`} label="Progress" />
-            <StatTile
-              value={formatRuntime(remainingRuntime)}
-              label="Watch time left"
-              hint="Across remaining essentials"
-            />
-          </Reveal>
-
-          <p className={styles["home_milestone"]}>{MILESTONE_COPY[milestone]}</p>
+          </div>
         </section>
 
         {progress.nextMovie ? (
@@ -123,6 +143,6 @@ export default function HomePage() {
           </Reveal>
         </section>
       </div>
-    </>
+    </RouteTransition>
   );
 }

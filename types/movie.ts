@@ -1,20 +1,27 @@
 export type Importance = "essential" | "recommended" | "optional";
 
-export type Saga = "Infinity Saga" | "Multiverse Saga";
+export type Saga =
+  | "X-Men Saga"
+  | "Sony Spider-Man"
+  | "Infinity Saga"
+  | "Multiverse Saga";
 
 export type ReleaseStatus = "released" | "upcoming";
+
+export type Medium = "film" | "series";
 
 export interface Movie {
   id: string;
   title: string;
-  releaseDate: string;
+  releaseDate: string | null;
   runtime: number;
   overview: string;
   poster: string | null;
-  imdbRating: number | null;
+  rating: number | null;
   streaming: string[];
-  phase: number;
-  saga: Saga;
+  phase: number | null;
+  saga: Saga | null;
+  medium: Medium;
   releaseOrder: number;
   chronologicalOrder: number;
   isRequiredForDoomsday: boolean;
